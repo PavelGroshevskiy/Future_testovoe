@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./Categories.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { setCategory } from "../../store/findSlice";
+import { setCategory, setPage } from "../../store/findSlice";
 
 const categories = [
 	"all",
@@ -25,6 +25,7 @@ const Categories = () => {
 						className={category === i ? style.active : ""}
 						onClick={() => {
 							dispatch(setCategory(i));
+							dispatch(setPage(0));
 						}}
 					>
 						{el}

@@ -36,7 +36,7 @@ export const findSlice = createSlice({
 		setFilters(state, action) {
 			state.sort = action.payload.sort;
 			state.category = Number(action.payload.category);
-			state.page = Number(action.payload.page);
+			// state.page = Number(action.payload.page);
 		},
 	},
 });
