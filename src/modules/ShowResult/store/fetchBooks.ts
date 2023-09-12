@@ -1,6 +1,5 @@
-import { FetchArgs, createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { API_KEY } from "../constants/apiKey";
-import { QueryArgs } from "@testing-library/react";
 
 export interface Response {
 	kind: string;
