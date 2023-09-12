@@ -7,21 +7,21 @@ import QueryString from "qs";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setFilters } from "../modules/FindBlock/store/findSlice";
-import { Link } from "react-router-dom";
+import { useSearchBooksQuery } from "../modules/ShowResult/store/fetchBooks";
 
 const categoryArr = [
 	"all",
 	"art",
 	"biography",
-	"computers",
+	":computers",
 	"history",
 	"medical",
 	"poetry",
 ];
 
 const Home = () => {
-	const [books, setBooks]: any = React.useState([]);
-	const [idBooks, setIdBook]: any = React.useState([]);
+	// const [books, setBooks]: any = React.useState([]);
+	const [maxResults, setMaxResults]: any = React.useState(30);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const isSearchRef = useRef(false);
@@ -30,23 +30,28 @@ const Home = () => {
 	const [countResult, setCountResult] = React.useState(0);
 	const { search, category, sort } = useSelector((state: any) => state.find);
 
+	const selectCat = categoryArr[category];
+
+	const { data } = useSearchBooksQuery({ search, maxResults, sort, selectCat });
+	console.log(data);
+	console.log(data && "RTKQ", data);
+
 	const fetchBooks = () => {
-		try {
-			fetch(
-				`https://www.googleapis.com/books/v1/volumes?q=${search}+intitle+subject=${categoryArr[category]}&orderBy=
-				${sort.type}&maxResults=30&startIndex=${page}&:keyes&key=${API_KEY}`
-			)
-				.then((res) => res.json())
-				.then((arr) => {
-					console.log("Arr", arr);
-					// setBooks([...books, ...arr.items]);
-					setBooks(arr.items);
-					// console.log(arr.items);
-					setCountResult(arr.totalItems);
-				});
-		} catch (e) {
-			console.log(e);
-		}
+		// try {
+		// 	fetch(
+		// 		`https://www.googleapis.com/books/v1/volumes?q=${search}+intitle+subject=${categoryArr[category]}&orderBy=
+		// 		${sort.type}&maxResults=30&startIndex=${page}&:keyes&key=${API_KEY}`
+		// 	)
+		// 		.then((res) => res.json())
+		// 		.then((arr) => {
+		// 			// setBooks([...books, ...arr.items]);
+		// 			setBooks(arr.items);
+		// 			// console.log(arr.items);
+		// 			setCountResult(arr.totalItems);
+		// 		});
+		// } catch (e) {
+		// 	console.log(e);
+		// }
 	};
 
 	React.useEffect(() => {
@@ -73,17 +78,16 @@ const Home = () => {
 		}
 		isMounted.current = true;
 	}, [search, sort, category, page]);
-	console.log(books && "books", books);
 
 	return (
 		<>
 			<Header />
 			<div className={style.result}>
-				<FindResult countResult={countResult} />
+				<FindResult countResult={data?.totalItems} />
 			</div>
 			<div className={style.home}>
-				{books ? (
-					<Books books={books} />
+				{data ? (
+					<Books books={data?.items} />
 				) : (
 					[...new Array(10)].map((_, id) => <Skeleton key={id} />)
 				)}

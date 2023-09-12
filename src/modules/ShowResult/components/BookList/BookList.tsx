@@ -7,12 +7,11 @@ interface Books {
 }
 
 const BookList = ({ books }: Books) => {
-	console.log(books);
 	return (
 		<>
-			{books.map((book: any, i: number) => (
+			{books?.map((book: any, i: number) => (
 				<Link to={`/book/${book.id}`} key={i}>
-					<BookCard bookObj={book.volumeInfo} />
+					<BookCard bookObj={book?.volumeInfo} />
 				</Link>
 			))}
 		</>
