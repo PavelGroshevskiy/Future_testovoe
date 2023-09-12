@@ -1,0 +1,36 @@
+.header {
+	border-bottom: 4px solid #0000004c;
+
+	padding: 80px 0;
+	// background: url("../../../../assets//img/getty_655998316_2000149920009280219_363765.jpg")
+	// 	no-repeat;
+	text-align: center;
+}
+
+h1 {
+	color: #6fbe80;
+	font-size: 24px;
+	letter-spacing: 1%;
+	text-transform: uppercase;
+	font-weight: 800;
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+.search {
+	width: 200px;
+	padding: 5px;
+	border-radius: 15px;
+	text-align: center;
+	border: 1px solid #4b3d3d;
+}
+
+.sortAndCategory {
+	margin-top: 20px;
+
+	align-items: center;
+	display: flex;
+	justify-content: space-around;
+	text-align: center;
+	flex-wrap: wrap;
+}

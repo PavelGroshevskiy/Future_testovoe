@@ -1,0 +1,26 @@
+.search {
+	position: relative;
+	display: inline-block;
+	margin-top: 10px;
+}
+.iconSearch {
+	width: 18px;
+	height: 18px;
+	position: absolute;
+	top: 5px;
+	left: 10px;
+	opacity: 0.5;
+}
+.iconClose {
+	width: 18px;
+	height: 18px;
+	position: absolute;
+	top: 5px;
+	right: 10px;
+	opacity: 0.5;
+	cursor: pointer;
+	opacity: 0.5;
+	&:hover {
+		opacity: 1;
+	}
+}
