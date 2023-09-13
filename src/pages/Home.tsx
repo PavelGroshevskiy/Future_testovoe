@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setFilters, setPage } from "../modules/FindBlock/store/findSlice";
 import {
+	useAddPostsMutation,
 	useLazySearchBooksQuery,
 	useSearchBooksQuery,
 } from "../modules/ShowResult/store/fetchBooks";
@@ -40,10 +41,11 @@ const Home = () => {
 		page,
 	});
 
+	const {} = useAddPostsMutation();
+
 	const Skeletons = () => {
 		return [...new Array(10)].map((_, id) => <Skeleton key={id} />);
 	};
-	const [fetchBooks] = useLazySearchBooksQuery();
 
 	console.log(data && "RTKQ", data);
 	React.useEffect(() => {
@@ -85,7 +87,6 @@ const Home = () => {
 			</div>
 			<button
 				onClick={() => {
-					fetchBooks(search);
 					dispatch(setPage(page + 1));
 				}}
 			>
