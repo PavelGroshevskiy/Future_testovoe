@@ -32,7 +32,7 @@ const Home = () => {
 
 	const selectCat = categoryArr[category];
 
-	const { data, error, isLoading } = useSearchBooksQuery({
+	const { data, isError, isLoading, isFetching } = useSearchBooksQuery({
 		search,
 		maxResults,
 		sort,
@@ -40,6 +40,9 @@ const Home = () => {
 		page,
 	});
 
+	const Skeletons = () => {
+		return [...new Array(10)].map((_, id) => <Skeleton key={id} />);
+	};
 	const [fetchBooks] = useLazySearchBooksQuery();
 
 	console.log(data && "RTKQ", data);
@@ -69,7 +72,7 @@ const Home = () => {
 		isMounted.current = true;
 	}, [search, sort, category, page]);
 
-	if (error) return <h1>Что-то пошло не так</h1>;
+	if (isError) return <h1>Что-то пошло не так</h1>;
 
 	return (
 		<>
@@ -78,11 +81,7 @@ const Home = () => {
 				<FindResult countResult={data?.totalItems} />
 			</div>
 			<div className={style.home}>
-				{isLoading ? (
-					[...new Array(10)].map((_, id) => <Skeleton key={id} />)
-				) : (
-					<Books books={data?.items} />
-				)}
+				{isLoading || isFetching ? Skeletons() : <Books books={data?.items} />}
 			</div>
 			<button
 				onClick={() => {

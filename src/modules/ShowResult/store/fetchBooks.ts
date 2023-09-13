@@ -39,6 +39,7 @@ export interface Query {
 
 export const booksApi = createApi({
 	reducerPath: "booksApi",
+	tagTypes: ["Books"],
 	baseQuery: fetchBaseQuery({
 		baseUrl: "https://www.googleapis.com/books/v1/volumes",
 	}),
@@ -57,6 +58,9 @@ export const booksApi = createApi({
 					},
 				};
 			},
+			// providesTags: (result): any => {
+			// 	console.log(result?.items);
+			// },
 
 			// transformResponse: (response: Response) => response.items,
 		}),
