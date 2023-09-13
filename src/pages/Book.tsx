@@ -5,12 +5,15 @@ import { useSerarchOneBookQuery } from "../modules/ShowResult/store/fetchBooks";
 
 const Book = () => {
 	const { id } = useParams();
-	const { data } = useSerarchOneBookQuery(id);
+	const { data, isError, isLoading } = useSerarchOneBookQuery(id);
+
+	if (isError) return <h1>Something went wrong</h1>;
+	if (isLoading) return <Skeleton />;
 
 	return (
 		<div>
 			<h1>Book</h1>
-			{data ? <OneBookCard bookObj={data} /> : <Skeleton />}
+			<OneBookCard bookObj={data} />
 		</div>
 	);
 };
