@@ -6,11 +6,7 @@ import QueryString from "qs";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setFilters, setPage } from "../modules/FindBlock/store/findSlice";
-import {
-	useAddPostsMutation,
-	useLazySearchBooksQuery,
-	useSearchBooksQuery,
-} from "../modules/ShowResult/store/fetchBooks";
+import { useSearchBooksQuery } from "../modules/ShowResult/store/fetchBooks";
 
 const categoryArr = [
 	"all",
@@ -23,7 +19,6 @@ const categoryArr = [
 ];
 
 const Home = () => {
-	const [maxResults, setMaxResults]: any = React.useState(30);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const isSearchRef = useRef(false);
@@ -35,13 +30,10 @@ const Home = () => {
 
 	const { data, isError, isLoading, isFetching } = useSearchBooksQuery({
 		search,
-		maxResults,
 		sort,
 		selectCat,
 		page,
 	});
-
-	const {} = useAddPostsMutation();
 
 	const Skeletons = () => {
 		return [...new Array(10)].map((_, id) => <Skeleton key={id} />);

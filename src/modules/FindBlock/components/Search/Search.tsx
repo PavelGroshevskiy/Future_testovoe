@@ -3,7 +3,7 @@ import MyInput from "../../../../UI/MyInput/MyInput";
 import style from "./Search.module.scss";
 import debounce from "lodash.debounce";
 import { useDispatch } from "react-redux";
-import { setInputSearch } from "../../store/findSlice";
+import { setInputSearch, setPage } from "../../store/findSlice";
 
 const Search = () => {
 	const [value, setValue] = React.useState("");
@@ -20,6 +20,7 @@ const Search = () => {
 
 	const onChangeInput = (e: any) => {
 		setValue(e.target.value);
+		dispatch(setPage(0));
 		onSearchDebounce(e.target.value);
 	};
 
