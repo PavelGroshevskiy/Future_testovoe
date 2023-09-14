@@ -6,17 +6,12 @@ import QueryString from "qs";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setFilters, setPage } from "../modules/FindBlock/store/findSlice";
-import { useSearchBooksQuery } from "../modules/ShowResult/store/fetchBooks";
+import {
+	useLazySearchBooksQuery,
+	useSearchBooksQuery,
+} from "../modules/ShowResult/store/fetchBooks";
 
-const categoryArr = [
-	"all",
-	"art",
-	"biography",
-	"computers",
-	"history",
-	"medical",
-	"poetry",
-];
+const categoryArr = ["", "art", "biography", "computers", "history", "medical", "poetry"];
 
 const Home = () => {
 	const dispatch = useDispatch();
@@ -27,12 +22,17 @@ const Home = () => {
 	const { search, category, sort, page } = useSelector((state: any) => state.find);
 
 	const selectCat = categoryArr[category];
-	const { data, isError, isLoading, isFetching } = useSearchBooksQuery({
-		search,
-		sort,
-		selectCat,
-		page,
-	});
+
+	const [fetchBooks] = useLazySearchBooksQuery();
+	const { data, isError, isLoading, isFetching } = useSearchBooksQuery(
+		{
+			search,
+			sort,
+			selectCat,
+			page,
+		},
+		{ refetchOnFocus: true }
+	);
 
 	const Skeletons = () => {
 		return [...new Array(10)].map((_, id) => <Skeleton key={id} />);

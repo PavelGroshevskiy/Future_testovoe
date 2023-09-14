@@ -32,25 +32,32 @@ export interface ImageLinks {
 
 export interface Query {
 	search: string;
+	sort: Sort;
+	page: number;
 	category?: number;
 	selectCat: string;
 	maxResults?: number;
 }
 
+export interface Sort {
+	type: string;
+}
+
 export const booksApi = createApi({
 	reducerPath: "booksApi",
+
 	tagTypes: ["Books"],
 	baseQuery: fetchBaseQuery({
 		baseUrl: "https://www.googleapis.com/books/v1/volumes",
 	}),
 	endpoints: (builder) => ({
-		searchBooks: builder.query<any, any>({
+		searchBooks: builder.query<Response, Query>({
 			query: (args) => {
 				const { search, maxResults = 30, sort, selectCat, page = 0 } = args;
 				return {
 					url: "/",
 					params: {
-						q: `${search}+inauthor+subject:${selectCat}`,
+						q: `${search}+intitle+subject:${selectCat}`,
 						maxResults: maxResults,
 						startIndex: page,
 						orderBy: sort.type,
