@@ -12,7 +12,7 @@ const categoryArr = [
 	"all",
 	"art",
 	"biography",
-	":computers",
+	"computers",
 	"history",
 	"medical",
 	"poetry",
@@ -27,7 +27,6 @@ const Home = () => {
 	const { search, category, sort, page } = useSelector((state: any) => state.find);
 
 	const selectCat = categoryArr[category];
-
 	const { data, isError, isLoading, isFetching } = useSearchBooksQuery({
 		search,
 		sort,
@@ -39,9 +38,7 @@ const Home = () => {
 		return [...new Array(10)].map((_, id) => <Skeleton key={id} />);
 	};
 
-	console.log(data && "RTKQ", data);
 	React.useEffect(() => {
-		console.log(data);
 		if (window.location.search) {
 			const params = QueryString.parse(window.location.search.substring(1));
 			dispatch(setFilters(params));
@@ -78,6 +75,7 @@ const Home = () => {
 				{isLoading || isFetching ? Skeletons() : <Books books={data?.items} />}
 			</div>
 			<button
+				style={{ height: "30px", width: "100px" }}
 				onClick={() => {
 					dispatch(setPage(page + 1));
 				}}

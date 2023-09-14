@@ -50,7 +50,7 @@ export const booksApi = createApi({
 				return {
 					url: "/",
 					params: {
-						q: `${search}+inauthor+subject${selectCat}`,
+						q: `${search}+inauthor+subject:${selectCat}`,
 						maxResults: maxResults,
 						startIndex: page,
 						orderBy: sort.type,
@@ -58,7 +58,6 @@ export const booksApi = createApi({
 					},
 				};
 			},
-			// providesTags: (result, error, id) => [{ type: "Posts", id }],
 		}),
 
 		serarchOneBook: builder.query({
